@@ -11,6 +11,7 @@ var player1Score = 0;
 var player2Score = 0;
 
 this.particleList = [];
+this.grassParticleList = [];
 
 function setup() {
     createCanvas(900, 600);
@@ -74,36 +75,83 @@ function draw() {
         fill(255, 0, 0);
         text("Player 2 Wins", width/2, height/2);
     }
+    
+    for(var i = 0; i < grassParticleList.length; i++) {
+        
+        if(grassParticleList[i].active) {
+            grassParticleList[i].display();
+        }
+        else {
+            grassParticleList[i].delete;
+        }
+    }
 }
 
 
 
 function keyPressed() {
-   if(keyCode == UP_ARROW) {
-   
+    if(keyCode == UP_ARROW) {
+
        player1.yVel -= 3;
        player1.newParticle();
        player1.b = 255;
-       
+
        if(keyIsDown(RIGHT_ARROW) && player1.xVel < 14) {
            player1.xVel += 2;
        }
        else if(keyIsDown(LEFT_ARROW) && player1.xVel > -14) {
            player1.xVel -= 2;
        }
-   }
+    }
+
+    if(keyCode == RIGHT_ARROW && player1.yPos > height-73 && player1.xVel < 0) {
+        player1.xVel += 2;
+        
+        for(var i = 0; i < 10; i++) {
+            grassParticleList[grassParticleList.length] = new Grass(player1.xPos-20, player1.yPos+20, player1.xVel-(Math.random()*3+1), -Math.random()*10);
+        }
+    }
+    
+    if(keyCode == LEFT_ARROW && player1.yPos > height-73 && player1.xVel > 0) {
+        player1.xVel -= 2;
+        
+        for(var i = 0; i < 10; i++) {
+            grassParticleList[grassParticleList.length] = new Grass(player1.xPos+20, player1.yPos+20, player1.xVel+(Math.random()*3+1), -Math.random()*10);
+        }
+    }
+    
+    
     
     if(keyCode == 87) {
-   
+
        player2.yVel -= 3;
        player2.newParticle();
        player2.r = 255;
-        
+
        if(keyIsDown(68) && player2.xVel < 14) {
            player2.xVel += 2;
        }
        else if(keyIsDown(65) && player2.xVel > -14) {
            player2.xVel -= 2;
        }
-   }
+    }
+    
+    if(keyCode == 68 && player2.yPos > height-73 && player2.xVel < 0) {
+        player2.xVel += 2;
+        
+        for(var i = 0; i < 10; i++) {
+            grassParticleList[grassParticleList.length] = new Grass(player2.xPos-20, player2.yPos+20, player2.xVel-(Math.random()*3+1), -Math.random()*10);
+        }
+    }
+    
+    if(keyCode == 65 && player2.yPos > height-73 && player2.xVel > 0) {
+        player2.xVel -= 2;
+        
+        for(var i = 0; i < 10; i++) {
+            grassParticleList[grassParticleList.length] = new Grass(player2.xPos+20, player2.yPos+20, player2.xVel+(Math.random()*3+1), -Math.random()*10);
+        }
+    }
+    
+    
+    
 }
