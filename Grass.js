@@ -17,7 +17,7 @@ function Grass(x, y, xVelocity, yVelocity) {
         this.yPos += this.yVel;
         
         fill(90, 200, 20);
-        rect(this.xPos, this.yPos, 2, 2);
+        rect(this.xPos, this.yPos, 4, 4);
         
         console.log(Math.abs(this.xPos-this.startPosX))
         
